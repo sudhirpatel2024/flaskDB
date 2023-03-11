@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="../static/css/style.css">
+
+{% extends "base.html" %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+
+<div class="container">
+    <h1>Add todo</h1>
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">todo title</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="title" aria-describedby="emailHelp">
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">todo description</label>
+            <input type="text" class="form-control" name="desc" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<br>
+<hr>
+<div class="container my-3">
+    <h1>your work</h1>
+
+    {% if allTodo|length==0 %}
+    <div class="alert alert-danger" role="alert">
+        please add some conent
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">SNo</th>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">time</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+            {% for todo in allTodo %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.date_created}}</td>
+                <td>
+                    <a class="btn btn-danger mx-1 btn-sm" href="/delete/{{todo.sno}}" role="button">delete</a>
+                    <a class="btn btn-success mx-1 btn-sm" href="/update/{{todo.sno}}" role="button">update</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock body%}
